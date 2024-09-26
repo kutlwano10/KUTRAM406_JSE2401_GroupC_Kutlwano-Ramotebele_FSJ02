@@ -1,8 +1,7 @@
 const API_BASE_URL = "https://next-ecommerce-api.vercel.app/products";
-
+import Image from "next/image";
 export async function getProductDetails(productId) {
   const response = await fetch(`${API_BASE_URL}/${productId}`);
-  console.log(response);
 
   if (!response) {
     throw Error("Failed to fetch Data");
@@ -26,7 +25,7 @@ export default async function productDetails({ params }) {
     <main>
       <div key={product.id}>
         <h1>{product.title}</h1>
-        <img src={product.thumbnail} alt="" />
+        <Image width={250} height={250} src={product.thumbnail} alt="" className="object-cover" />
         <span className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
           {product.category}
         </span>

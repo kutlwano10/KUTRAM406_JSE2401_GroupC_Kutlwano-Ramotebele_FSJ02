@@ -3,13 +3,16 @@ import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import fetchData from "../api/route";
 import SearchBar from "./SearchBar";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const ProductList = () => {
   let [products, setProducts] = useState([]);
   let [loading, setLoading] = useState(false);
-  /**To keep the state of the pages */
   let [pages, setPages] = useState(0);
   let [searchItem, setSearchItem] = useState('')
+
+  let router = useRouter()
+  let searchParams = useSearchParams()
 
   const getProducts = async (pageNumber, searchItem = '') => {
     try {
@@ -27,7 +30,10 @@ const ProductList = () => {
   };
 
   useEffect(() => {
-    getProducts(0);
+   
+    const initialSearch = searchParams.get('search') || ""
+    setSearchItem(initialSearch)
+    getProducts(0,initialSearch);
   }, []);
 
   /**
@@ -45,6 +51,7 @@ const ProductList = () => {
     setSearchItem(newSearchItem)
     setPages(0)
     getProducts(0, newSearchItem)
+    router.replace(`/?search=${newSearchItem}`)
 
   }
 

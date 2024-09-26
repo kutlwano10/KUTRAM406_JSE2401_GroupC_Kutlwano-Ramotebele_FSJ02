@@ -15,7 +15,7 @@ const SearchBar = ({onSearch}) => {
   }
 
   return (
-    <div className="w-80 relative top-0 mb-20">
+    <div className="w-80 relative top-0 mb-20 border">
       <label htmlFor="Search" className="sr-only">
         {" "}
         Search{" "}
